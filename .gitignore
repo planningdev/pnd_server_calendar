@@ -48,3 +48,20 @@ build-iPhoneSimulator/
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
+
+# Ignore node_modules
+node_modules/
+# Ignore precompiled javascript packs
+/public/packs
+/public/packs-test
+/public/assets
+
+# Ignore swap file
+*.swp
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+
+# Ignore uploaded files in development
+/storage/*
+!/storage/.keep
