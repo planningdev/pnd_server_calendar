@@ -1,7 +1,10 @@
 class SchedulesController < ApplicationController
 
   def index
-
+    # 必要なパラメータがないとき、status400でreturn
+    render json: { status: 400, message:  "パラメータが足りません."} and return if params[:year].nil?
+    schedules = Schedule.search_for_year_of(params[:year])
+    render json: { status: 200, data: schedules }
   end
 
   def create

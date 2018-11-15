@@ -69,3 +69,5 @@ node_modules/
 /storage/*
 !/storage/.keep
 
+# Ignore Byebug command history file.
+.byebug_history
