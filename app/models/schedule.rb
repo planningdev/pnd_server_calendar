@@ -1,4 +1,5 @@
 class Schedule < ApplicationRecord
+  before_validation :prepare_save
 
   # title, start, finish, all_day は必ず存在する
   validates :title, presence: true
@@ -12,6 +13,7 @@ class Schedule < ApplicationRecord
 
   # 終わり時間は開始時間よりも遅くないといけない
   def finish_more_than_start
+    return unless [self.start, self.finish].all?
     # startがfinishより大きいときエラーを追加
     if start > finish
       errors.add(:finish, "finish time must be more than start time.")
@@ -39,4 +41,16 @@ class Schedule < ApplicationRecord
     # scheduleモデルからyearで始まるイベントを返す
     self.where('start like ?', "#{year}%")
   end
+
+  # saveの直前(validationの直前)に行われる処理
+  # all_dayがtrueの時startとfinishを日の始まりと終わりに設定する
+  def prepare_save
+    # startかfinishのどちらかが空だとreturn
+    return unless [self.start, self.finish].all?
+    if self.all_day
+      self.start = self.start.beginning_of_day
+      self.finish = self.finish.end_of_day
+    end
+  end
+
 end
