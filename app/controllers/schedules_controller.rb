@@ -1,4 +1,5 @@
 class SchedulesController < ApplicationController
+  before_action :correct_access
 
   def index
     # 必要なパラメータがないとき、status400でreturn
@@ -37,6 +38,13 @@ class SchedulesController < ApplicationController
   private
     def schedule_params
       params.require(:schedule).permit(:title, :start, :finish, :all_day, :memo, :place)
+    end
+
+    # 正しいアクセスかどうか
+    def correct_access
+      unless request.headers[:Authorization] == ENV["ACCESS_KEY"]
+        render json: { status: 401, message: "access token is not valid." }
+      end
     end
 
 end

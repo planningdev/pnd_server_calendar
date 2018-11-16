@@ -17,6 +17,9 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# .env から環境変数をロード
+Dotenv::Railtie.load
+
 module PndServerCalendar
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
