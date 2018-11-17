@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Schedule < ApplicationRecord
   before_validation :prepare_save
 
@@ -13,10 +15,11 @@ class Schedule < ApplicationRecord
 
   # 終わり時間は開始時間よりも遅くないといけない
   def finish_more_than_start
-    return unless [self.start, self.finish].all?
+    return unless [start, finish].all?
+
     # startがfinishより大きいときエラーを追加
     if start > finish
-      errors.add(:finish, "finish time must be more than start time.")
+      errors.add(:finish, 'finish time must be more than start time.')
     end
   end
 
@@ -29,7 +32,7 @@ class Schedule < ApplicationRecord
     # 検索の下限
     lower = date - 6.month
     # 上限と下限を用い、範囲内のイベントを返す
-    self.where("start < ? and start > ?", upper, lower)
+    where('start < ? and start > ?', upper, lower)
   end
 
   # パラメータの年分のイベントを返す
@@ -39,18 +42,18 @@ class Schedule < ApplicationRecord
     # dateから年だけの情報を取得
     year = date.year
     # scheduleモデルからyearで始まるイベントを返す
-    self.where('start like ?', "#{year}%")
+    where('start like ?', "#{year}%")
   end
 
   # saveの直前(validationの直前)に行われる処理
   # all_dayがtrueの時startとfinishを日の始まりと終わりに設定する
   def prepare_save
     # startかfinishのどちらかが空だとreturn
-    return unless [self.start, self.finish].all?
-    if self.all_day
-      self.start = self.start.beginning_of_day
-      self.finish = self.finish.end_of_day
+    return unless [start, finish].all?
+
+    if all_day
+      self.start = start.beginning_of_day
+      self.finish = finish.end_of_day
     end
   end
-
 end
