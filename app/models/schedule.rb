@@ -9,7 +9,9 @@ class Schedule < ApplicationRecord
   validates :finish, presence: true
   # all_day は必ずtrueかfalseの値をとる
   validates :all_day, inclusion: { in: [true, false] }
-  validates :memo, length: { maximum: 1028 }
+  # memoとplaceの最大文字数を指定
+  validates :memo, length: { maximum: 1024 }
+  validates :place, length: { maximum: 128 }
 
   # 関数のvalidationを追加
   validate :finish_more_than_start

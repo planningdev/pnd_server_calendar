@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2018_11_17_073500) do
     t.datetime "finish", null: false
     t.boolean "all_day", default: false, null: false
     t.string "memo", default: ""
-    t.string "place"
+    t.string "place", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
