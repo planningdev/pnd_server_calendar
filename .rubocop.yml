@@ -6,6 +6,8 @@ AllCops:
     - lib/geohash.rb
     - lib/manager/geo.rb
     - bin/spring
+    - bin/setup
+    - bin/update
 Metrics/LineLength:
   Exclude:
     - 'Rakefile'
