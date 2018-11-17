@@ -21,7 +21,7 @@ class SchedulesController < ApplicationController
 
   def update
     schedule = Schedule.find(params[:id])
-    if schedule.update_attributes(schedule_params)
+    if schedule.update(schedule_params)
       render json: { status: 201, message: 'event was updated successfully.' }
     else
       render json: { status: 400, message: 'bad request.' }
@@ -45,8 +45,10 @@ class SchedulesController < ApplicationController
 
   # 正しいアクセスかどうか
   def correct_access
+    # rubocop:disable Style/GuardClause
     unless request.headers[:Authorization] == ENV['ACCESS_KEY']
       render json: { status: 401, message: 'access token is not valid.' }
     end
+    # rubocop:enable Style/GuardClause
   end
 end
