@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SchedulesController < ApplicationController
-  # before_action :correct_access
+  before_action :correct_access
 
   def index
     # 必要なパラメータがないとき、status400でreturn
