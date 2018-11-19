@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_13_084240) do
+ActiveRecord::Schema.define(version: 2018_11_17_073500) do
 
   create_table "schedules", force: :cascade do |t|
     t.string "title", null: false
     t.datetime "start", null: false
     t.datetime "finish", null: false
     t.boolean "all_day", default: false, null: false
-    t.string "memo"
-    t.string "place"
+    t.string "memo", default: ""
+    t.string "place", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
